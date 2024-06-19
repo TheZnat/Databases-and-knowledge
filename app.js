@@ -1,5 +1,5 @@
-// работа с базой данных (через модуль для синхр. работы с MySQL, который должен быть усталовлен командой: sync-mysql)
-const Mysql = require('C:\\nodejs\\node_modules\\sync-mysql');
+// работа с базой данных (через модуль для синхр. работы с MySQL, который может быть усталовлен командой: npm install sync-mysql)
+const Mysql = require('sync-mysql'); // npm install sync-mysql
 const connection = new Mysql({
     host: 'localhost',
     user: 'root',
