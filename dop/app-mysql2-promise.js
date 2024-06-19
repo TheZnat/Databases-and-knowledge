@@ -1,8 +1,12 @@
 const mysql = require('mysql2/promise'); // npm install mysql2
-const qs = require('querystring');
+const path = require('path');
 const fs = require('fs');
+const qs = require('querystring');
+const http = require('http');
 
 const TABLE_NAME = 'myarttable';
+const HOSTNAME = '127.0.0.1';
+const PORT = 3001;
 
 main(); // точка входа в код.
 async function main() {
@@ -20,11 +24,7 @@ async function main() {
     async function reqPost(request, response) {
         if (request.method == 'POST') {
             var body = '';
-
-            request.on('data', function (data) {
-                body += data;
-            });
-
+            request.on('data', function (data) {body += data;});
             request.on('end', async function () {
 				// формирование запроса INSERT ...
                 var post = qs.parse(body);
@@ -34,7 +34,7 @@ async function main() {
                 var results = await connection.query(sInsert);
                 console.log('Done. Hint: ' + sInsert);
             });
-			response.setHeader('Refresh', '0;url=http://127.0.0.1:3000');
+			response.setHeader('Refresh', `0;url=http://${HOSTNAME}:${PORT}`);
         }
     }
 
@@ -55,16 +55,14 @@ async function main() {
     }
 
     // создание ответа в браузер, на случай подключения.
-    const http = require('http');
     const server = http.createServer(async (req, res) => {
         reqPost(req, res);
         console.log('Loading...');
-
         res.statusCode = 200;
-
         // чтение шаблона в каталоге со скриптом.
-        var array = fs.readFileSync(__dirname + '/select.html').toString().split('\n');
-        console.log(__dirname + '/select.html');
+		const filePath = path.join(__dirname, '../select.html');
+        var array = fs.readFileSync(filePath).toString().split('\n');
+        console.log(filePath);
 
         for (i in array) {
             const word = array[i].trim();
@@ -85,9 +83,5 @@ async function main() {
     });
 
     // запуск сервера, ожидание подключений из браузера.
-    const hostname = '127.0.0.1';
-    const port = 3000;
-    server.listen(port, hostname, () => {
-        console.log(`Server running at http://${hostname}:${port}/`);
-    });
+    server.listen(PORT, HOSTNAME, () => {console.log(`Server running at http://${HOSTNAME}:${PORT}/`);});
 }
