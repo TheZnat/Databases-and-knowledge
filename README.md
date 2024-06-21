@@ -22,4 +22,5 @@
 Для работы под macOS необходимо сделать след. действия:
 1) Установить MongoDB Community по официальной инструкции из док-ции: https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x/
 2) Установить Node.js из пакета PRG с оф. сайта: https://nodejs.org/
-3) Установить модуль для работы с MySQL с помощью команды: npm install sync-mysql
+3) Установить модули для работы с MongoDB (СУБД NoSQL): npm install mongodb express
+4) Установить модуль для MySQL с помощью команды: npm install mysql2
