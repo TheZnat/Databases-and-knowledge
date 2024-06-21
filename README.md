@@ -14,3 +14,12 @@
 2) Версия npm: 9.6.4
 
 Допустима работа скрипта как с асинхронным (sync-mysql), так и синхронным (mysql2) модулем взаимодействия с MySQL. Оба скрипта доступны в каталоге dop с примером. Первый модуль устанавливается командой: npm install sync-mysql, второй: npm install mysql2. В каталоге со скриптами появятся дополнительные модули.
+
+Все примеры работают под macOS Sonoma 14.5 без доработки. Вид в браузере Safari 17.5:
+
+<img width="967" alt="Снимок экрана 2024-06-21 в 23 34 06" src="https://github.com/alex1543/practNode/assets/10297748/78c05713-78a2-4b63-8515-bd71cefabb79">
+
+Для работы под macOS необходимо сделать след. действия:
+1) Установить MongoDB Community по официальной инструкции из док-ции: https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x/
+2) Установить Node.js из пакета PRG с оф. сайта: https://nodejs.org/
+3) Установить модуль для работы с MySQL с помощью команды: npm install sync-mysql
