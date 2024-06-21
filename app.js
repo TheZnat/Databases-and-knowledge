@@ -55,13 +55,13 @@ const http = require('http');
 const server = http.createServer((req, res) => {
 	reqPost(req, res);
 	console.log('Loading...');
-	
+
 	res.statusCode = 200;
 
 	// чтение шаблона в каталоге со скриптом.
 	var fs = require('fs');
-	var array = fs.readFileSync(__dirname+'\\select.html').toString().split("\n");
-	console.log(__dirname+'\\select.html');
+	var array = fs.readFileSync(__dirname+'/select.html').toString().split("\n");
+	console.log(__dirname+'/select.html');
 	for(i in array) {
 		// подстановка.
 		if ((array[i].trim() != '@tr') && (array[i].trim() != '@ver')) res.write(array[i]);
