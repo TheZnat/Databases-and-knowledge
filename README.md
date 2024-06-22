@@ -23,4 +23,4 @@
 1) Установить MongoDB Community по официальной инструкции из док-ции: https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x/
 2) Установить Node.js из пакета node-v20.15.0.pkg с оф. сайта: https://nodejs.org/
 3) Установить модули для работы с MongoDB (СУБД NoSQL) с помощью команды: npm install mongodb express
-4) Установить модуль для MySQL: npm install mysql2
+4) Для примеров из каталога dop установить модуль для MySQL: npm install mysql2
