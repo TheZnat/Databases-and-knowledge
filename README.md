@@ -19,11 +19,11 @@
 
 <img width="967" alt="Снимок экрана 2024-06-21 в 23 34 06" src="https://github.com/alex1543/practNode/assets/10297748/78c05713-78a2-4b63-8515-bd71cefabb79">
 
-Для работы под macOS необходимо сделать след. действия:
+---
+Для работы с MongoDB необходимо сделать след. действия:
 1) Установить MongoDB Community по официальной инструкции из док-ции: https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x/
 2) Установить Node.js из пакета node-v20.15.0.pkg с оф. сайта: https://nodejs.org/
 3) Установить модули для работы с MongoDB (СУБД NoSQL) с помощью команды: npm install mongodb express
-4) Для примеров из каталога dop установить модуль для MySQL: npm install mysql2
 
 Внешний вид сайта для редактирования одной коллекции MongoDB:
 
