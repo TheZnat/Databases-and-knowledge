@@ -2,6 +2,7 @@
 Как можно работать с таблицами в MySQL на Node.js (JavaScript наоборот)
 
 Внешний вид главного окна представлен далее.
+
 ---
 ![image](https://user-images.githubusercontent.com/10297748/230503674-84807929-9e4c-4de7-b97d-7676b2de80b5.png)
 
@@ -29,4 +30,5 @@
 Внешний вид сайта для редактирования одной коллекции MongoDB:
 
 <img width="862" alt="Снимок экрана 2024-06-22 в 21 33 39" src="https://github.com/alex1543/practNode/assets/10297748/ad259ed7-444c-468d-b68d-913ef3965e29">
-
+---
+Все примеры одинаково работают под macOS и Windows.
