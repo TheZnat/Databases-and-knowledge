@@ -24,3 +24,7 @@
 2) Установить Node.js из пакета node-v20.15.0.pkg с оф. сайта: https://nodejs.org/
 3) Установить модули для работы с MongoDB (СУБД NoSQL) с помощью команды: npm install mongodb express
 4) Для примеров из каталога dop установить модуль для MySQL: npm install mysql2
+
+Внешний вид сайта для редактирования одной коллекции MongoDB:
+
+<img width="835" alt="Снимок экрана 2024-06-22 в 21 14 04" src="https://github.com/alex1543/practNode/assets/10297748/39f4f89d-7ebb-45f2-b1bc-a12f90008d40">
