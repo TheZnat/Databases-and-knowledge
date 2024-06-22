@@ -27,4 +27,5 @@
 
 Внешний вид сайта для редактирования одной коллекции MongoDB:
 
-<img width="835" alt="Снимок экрана 2024-06-22 в 21 14 04" src="https://github.com/alex1543/practNode/assets/10297748/39f4f89d-7ebb-45f2-b1bc-a12f90008d40">
+<img width="862" alt="Снимок экрана 2024-06-22 в 21 33 39" src="https://github.com/alex1543/practNode/assets/10297748/ad259ed7-444c-468d-b68d-913ef3965e29">
+
