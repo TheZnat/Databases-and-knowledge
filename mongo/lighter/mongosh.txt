@@ -1,0 +1,3 @@
+После установки mongosh выполнить следующие команды:
+db.users.insertOne( { name: "Alexey Subbotin" } )
+db.users.find()
