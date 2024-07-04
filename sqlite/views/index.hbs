@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Список пользователей</title>
+    <meta charset="utf-8" />
+    <style>
+      body {
+        font-family: math;
+      }
+      table {
+        width: 100%;
+        border: dashed 3px #a5a3a3;
+        table-layout: fixed;
+      }
+      tr {
+        text-align: left;
+        font-size: larger;
+      }
+      td:last-child {
+        text-align: right;
+      }
+      td {
+        border: solid 1px #aeacac;
+        background: #eaeaf0;
+      }
+      input, a {
+        background: #6495ed;
+        padding: 6px 15px 6px 15px;
+        cursor: pointer;
+        border: solid 2px #3F51B5;
+        font-size: medium;
+        text-decoration: none;
+        color: black;
+        font-family: monospace;
+      }
+      input:hover, a:hover {
+        background: #5780cb;
+        color: white;
+        font-weight: bold;
+      }
+      .hint {
+        text-align: center;
+        margin-top: 5px;
+      }
+    </style>
+</head>
+<body>
+    <h1>Список пользователей</h1>
+    <p><a href="/create">Добавить пользователя</a></p>
+    <table>
+        <tr><th>Name</th><th>Age</th><th></th></tr>
+        {{#each users}}
+            <tr>
+                <td>{{this.name}}</td>
+                <td>{{this.age}}</td>
+                <td>
+                    <a href="/edit/{{this.id}}">Edit</a> |
+                    <form action="delete/{{this.id}}" method="POST" style="display:inline;">
+                        <input type="submit" value="Delete" />
+                    </form>
+                </td>
+            </tr>
+        {{/each}}
+    </table>
+    <div class="hint">Редактирование одной таблицы на express, <b>sqlite3</b> и sequelize.</div>
+</body>
+<html>
