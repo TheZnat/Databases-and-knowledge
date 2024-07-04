@@ -1,4 +1,5 @@
 Допустима работа Node.js с базой данных SQLite.
+
 Для этого нужно выполнить команду в каталоге sqlite:
 
 npm install --save hbs express sqlite3 sequelize
