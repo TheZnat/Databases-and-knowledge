@@ -1,4 +1,6 @@
 Можно работать с базой данных CouchDB
+--
+Для запуска тестого примера, нужно выполнить следующие действия:
 1. Скачать установщик с сайта: https://couchdb.apache.org/#download
 2. Переместить в Applications, запустить через Launchpad и ввести логин/пароль: admin/a
 3. Перейти по адресу: http://localhost:5984 и увидеть в браузере примерно следующее: {"couchdb":"Welcome","version":"3.3.3","git_sha":"40afbcfc7","uuid":"e46d843c15aca274110a20d3ec0de5ac","features":["access-ready","partitioned","pluggable-storage-engines","reshard","scheduler"],"vendor":{"name":"The Apache Software Foundation"}}
