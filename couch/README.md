@@ -9,3 +9,5 @@
 6. Перейти в каталог с исходниками и выполнить команду: 'npm install cradle'
 7. Запустить скрипт на выполнение: 'node sv'
 8. Открыть страницу: http://localhost:8071 и убедиться в успешном добавлении документа. Например, так: 'SUCESSFUL SAVE'
+
+<img width="591" alt="Снимок экрана 2024-07-24 в 22 00 13" src="https://github.com/user-attachments/assets/fe582d11-f77b-48b9-bafb-76e45e343716">
