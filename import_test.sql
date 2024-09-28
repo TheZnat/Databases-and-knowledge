@@ -1,105 +1,177 @@
--- Создание таблицы Individuals
-CREATE TABLE Individuals (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(50) NOT NULL,
-    last_name VARCHAR(50) NOT NULL,
-    middle_name VARCHAR(50),
-    passport_number VARCHAR(20) NOT NULL,
-    inn VARCHAR(12) NOT NULL,
-    snils VARCHAR(11),
-    driver_license VARCHAR(20),
-    additional_docs TEXT,
+-- Создание таблицы Sector
+CREATE TABLE Sector (
+    id INT AUTO_INCREMENT PRIMARY KEY,        
+    coordinates VARCHAR(100) NOT NULL,         
+    light_intensity FLOAT NOT NULL,           
+    foreign_objects VARCHAR(255),              
+    star_objects_count INT NOT NULL,           
+    undefined_objects_count INT NOT NULL,     
+    identified_objects_count INT NOT NULL,        
+    notes TEXT,                              
+    date_update DATETIME DEFAULT NULL          
+);
+
+-- Создание таблицы Objects 
+CREATE TABLE Objects (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    type VARCHAR(100),
+    accuracy DECIMAL(5, 2),
+    quantity INT,
+    time TIME,
+    date DATE,
     notes TEXT
 );
 
--- Создание таблицы Borrowers
-CREATE TABLE Borrowers (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    inn VARCHAR(12) NOT NULL,
-    entity_type ENUM('individual', 'organization') NOT NULL,
-    address VARCHAR(255),
-    total_amount DECIMAL(15, 2),
-    conditions TEXT,
-    legal_notes TEXT,
-    contract_list TEXT
+-- Создание таблицы NaturalObjects
+CREATE TABLE NaturalObjects (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    type VARCHAR(100),
+    galaxy VARCHAR(255),
+    accuracy DECIMAL(5, 2),
+    light_flow DECIMAL(10, 2),
+    related_objects TEXT,
+    notes TEXT
 );
 
--- Создание таблицы Loans
-CREATE TABLE Loans (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    individual_id INT,
-    borrower_id INT,
-    amount DECIMAL(15, 2) NOT NULL,
-    interest_rate DECIMAL(5, 2) NOT NULL,
-    term INT NOT NULL, -- срок в месяцах
-    conditions TEXT,
-    notes TEXT,
-    FOREIGN KEY (individual_id) REFERENCES Individuals(id) ON DELETE CASCADE,
-    FOREIGN KEY (borrower_id) REFERENCES Borrowers(id) ON DELETE CASCADE
+-- Создание таблицы Position
+CREATE TABLE Position (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    earth_position VARCHAR(255),
+    sun_position VARCHAR(255),
+    moon_position VARCHAR(255)
 );
 
--- Создание таблицы Credits
-CREATE TABLE Credits (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    organization_id INT,
-    individual_id INT,
-    borrower_id INT,
-    amount DECIMAL(15, 2) NOT NULL,
-    term INT NOT NULL, -- срок в месяцах
-    interest_rate DECIMAL(5, 2) NOT NULL,
-    conditions TEXT,
-    notes TEXT,
-    FOREIGN KEY (individual_id) REFERENCES Individuals(id) ON DELETE CASCADE,
-    FOREIGN KEY (borrower_id) REFERENCES Borrowers(id) ON DELETE CASCADE
+-- Создание таблицы LinkTable
+CREATE TABLE LinkTable (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    sector_id INT,
+    object_id INT,
+    natural_object_id INT,
+    position_id INT,
+    FOREIGN KEY (sector_id) REFERENCES Sector(id),
+    FOREIGN KEY (object_id) REFERENCES Objects(id),
+    FOREIGN KEY (natural_object_id) REFERENCES NaturalObjects(id),
+    FOREIGN KEY (position_id) REFERENCES `Position`(id)
 );
 
-INSERT INTO Individuals (first_name, last_name, middle_name, passport_number, inn, snils, driver_license, additional_docs, notes)
-VALUES 
-('Ivan', 'Petrov', 'Sergeevich', '1234567890', '123456789012', '12345678901', 'AB1234567', 'none', 'Important client'),
-('Alexey', 'Ivanov', 'Vladimirovich', '2345678901', '234567890123', '23456789012', 'CD2345678', 'none', 'Premium account'),
-('Maria', 'Smirnova', 'Ivanovna', '3456789012', '345678901234', '34567890123', 'EF3456789', 'none', 'Good history'),
-('Olga', 'Sidorova', 'Petrovna', '4567890123', '456789012345', '45678901234', 'GH4567890', 'none', 'Regular customer'),
-('Sergey', 'Fedorov', 'Mikhailovich', '5678901234', '567890123456', '56789012345', 'IJ5678901', 'none', 'Corporate client'),
-('Elena', 'Kuznetsova', 'Vladislavovna', '6789012345', '678901234567', '67890123456', 'KL6789012', 'none', 'Investor'),
-('Nikolay', 'Kovalev', 'Pavlovich', '7890123456', '789012345678', '78901234567', 'MN7890123', 'none', 'Preferred client'),
-('Irina', 'Mikhailova', 'Dmitrievna', '8901234567', '890123456789', '89012345678', 'OP8901234', 'none', 'Reliable client'),
-('Dmitry', 'Nikolaev', 'Igorevich', '9012345678', '901234567890', '90123456789', 'QR9012345', 'none', 'Recently joined'),
-('Anna', 'Popova', 'Sergeevna', '0123456789', '012345678901', '01234567890', 'ST0123456', 'none', 'Top investor');
 
-INSERT INTO Individuals (first_name, last_name, middle_name, passport_number, inn, snils, driver_license, additional_docs, notes)
-VALUES 
-('Ivan', 'Petrov', 'Sergeevich', '1234567890', '123456789012', '12345678901', 'AB1234567', 'none', 'Important client'),
-('Alexey', 'Ivanov', 'Vladimirovich', '2345678901', '234567890123', '23456789012', 'CD2345678', 'none', 'Premium account'),
-('Maria', 'Smirnova', 'Ivanovna', '3456789012', '345678901234', '34567890123', 'EF3456789', 'none', 'Good history'),
-('Olga', 'Sidorova', 'Petrovna', '4567890123', '456789012345', '45678901234', 'GH4567890', 'none', 'Regular customer'),
-('Sergey', 'Fedorov', 'Mikhailovich', '5678901234', '567890123456', '56789012345', 'IJ5678901', 'none', 'Corporate client'),
-('Elena', 'Kuznetsova', 'Vladislavovna', '6789012345', '678901234567', '67890123456', 'KL6789012', 'none', 'Investor'),
-('Nikolay', 'Kovalev', 'Pavlovich', '7890123456', '789012345678', '78901234567', 'MN7890123', 'none', 'Preferred client'),
-('Irina', 'Mikhailova', 'Dmitrievna', '8901234567', '890123456789', '89012345678', 'OP8901234', 'none', 'Reliable client'),
-('Dmitry', 'Nikolaev', 'Igorevich', '9012345678', '901234567890', '90123456789', 'QR9012345', 'none', 'Recently joined'),
-('Anna', 'Popova', 'Sergeevna', '0123456789', '012345678901', '01234567890', 'ST0123456', 'none', 'Top investor');
+-- Процедура для добавления столбца date_update, если его нет:
+DELIMITER //
 
-INSERT INTO Borrowers (inn, entity_type, address, total_amount, conditions, legal_notes, contract_list)
-VALUES 
-('123456789012', 'individual', '123 Main St', 1000000.00, 'Standard terms', 'No legal issues', 'Contract_001'),
-('234567890123', 'individual', '456 Oak Ave', 500000.00, 'Flexible terms', 'Pending verification', 'Contract_002'),
-('345678901234', 'organization', '789 Pine Rd', 2500000.00, 'Long-term credit', 'Under review', 'Contract_003'),
-('456789012345', 'individual', '101 Elm St', 750000.00, 'Short-term loan', 'Cleared for approval', 'Contract_004'),
-('567890123456', 'organization', '202 Birch Blvd', 3000000.00, 'Corporate loan', 'Pending clearance', 'Contract_005');
+CREATE PROCEDURE ensure_date_update_exists()
+BEGIN
+    DECLARE column_exists INT DEFAULT 0;
 
-INSERT INTO Loans (individual_id, borrower_id, amount, interest_rate, term, conditions, notes)
-VALUES 
-(1, 1, 100000.00, 5.00, 12, 'Standard loan', 'Good credit history'),
-(2, 2, 200000.00, 4.50, 24, 'Flexible payment terms', 'Approved'),
-(3, 3, 500000.00, 6.00, 36, 'Corporate loan', 'Pending'),
-(4, 4, 150000.00, 5.50, 12, 'Urgent loan', 'High risk'),
-(5, 5, 1000000.00, 4.00, 48, 'Investment loan', 'Top priority');
+    -- Проверка наличия столбца 'date_update' в таблице 'Sector'
+    SELECT COUNT(*)
+    INTO column_exists
+    FROM INFORMATION_SCHEMA.COLUMNS
+    WHERE table_name = 'Sector'
+    AND column_name = 'date_update';
 
-INSERT INTO Credits (organization_id, individual_id, borrower_id, amount, term, interest_rate, conditions, notes)
-VALUES 
-(1, 2, 1, 500000.00, 36, 5.50, 'Corporate credit', 'Approved for expansion'),
-(2, 3, 2, 300000.00, 24, 6.00, 'Short-term credit', 'Under review'),
-(3, 4, 3, 1000000.00, 60, 4.75, 'Long-term credit', 'High value client'),
-(4, 5, 4, 2000000.00, 48, 5.00, 'Corporate investment', 'Approved for large-scale project'),
-(5, 6, 5, 1500000.00, 36, 4.50, 'Expansion credit', 'Cleared for funding');
+    -- Если столбца нет, добавляем его
+    IF column_exists = 0 THEN
+        ALTER TABLE Sector ADD COLUMN date_update TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+    END IF;
+END //
 
+DELIMITER ;
+
+--- Создание триггера для обновления date_update:
+CREATE TRIGGER update_sector_date
+AFTER UPDATE ON Sector
+FOR EACH ROW
+BEGIN
+    -- Проверяем, существует ли столбец date_update, и добавляем его, если необходимо
+    IF NOT EXISTS (
+        SELECT 1 FROM information_schema.COLUMNS 
+        WHERE TABLE_NAME = 'Sector' AND COLUMN_NAME = 'date_update'
+    ) THEN
+        -- Добавляем столбец date_update, если он не существует
+        ALTER TABLE Sector ADD date_update DATETIME;
+    END IF;
+
+    -- Обновляем столбец date_update текущей датой и временем
+    SET NEW.date_update = NOW();
+END;
+
+--- Создание триггера для обновления date_update
+
+DELIMITER //
+
+CREATE TRIGGER update_date_update
+BEFORE UPDATE ON Sector
+FOR EACH ROW
+BEGIN
+    SET NEW.date_update = NOW();
+END //
+
+DELIMITER ;
+
+
+--- Создание процедуры для объединения двух таблиц с помощью JOIN
+DELIMITER //
+
+CREATE PROCEDURE join_tables(IN table1_name VARCHAR(255), IN table2_name VARCHAR(255))
+BEGIN
+    -- Динамический SQL для выполнения JOIN
+    SET @sql = CONCAT('SELECT * FROM ', table1_name, ' t1 INNER JOIN ', table2_name, ' t2 ON t1.id = t2.id');
+    
+    -- Выполняем динамический SQL
+    PREPARE stmt FROM @sql;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+END //
+
+DELIMITER ;
+
+
+--- Заполнение таблицы тестовыми данными 
+
+--- Заполнение таблицы Sector 
+INSERT INTO Sector (coordinates, light_intensity, foreign_objects, star_objects_count, undefined_objects_count, identified_objects_count, notes)
+VALUES 
+('12.34, 56.78', 250.75, 'None', 15, 5, 10, 'Sector A observation'),
+('45.67, 89.01', 300.12, 'Space debris', 20, 2, 18, 'Sector B observation'),
+('23.45, 67.89', 180.50, 'Satellite', 10, 1, 9, 'Sector C observation'),
+('34.56, 78.90', 500.00, 'Meteor', 25, 3, 22, 'Sector D observation'),
+('98.76, 54.32', 320.45, 'Unknown object', 8, 6, 2, 'Sector E observation');
+
+-- Заполнение таблицы Objects 
+INSERT INTO Objects (type, accuracy, quantity, time, date, notes)
+VALUES 
+('Star', 0.98, 10, '22:15:00', '2024-09-18', 'Observed multiple stars'),
+('Planet', 0.95, 1, '03:45:00', '2024-09-17', 'Single planet sighting'),
+('Comet', 0.80, 1, '14:30:00', '2024-09-16', 'Comet moving fast'),
+('Asteroid', 0.75, 3, '07:20:00', '2024-09-15', 'Asteroids detected'),
+('Satellite', 0.92, 2, '19:50:00', '2024-09-14', 'Satellites in orbit');
+
+
+-- Заполнение таблицы NaturalObjects 
+INSERT INTO NaturalObjects (type, galaxy, accuracy, light_flow, related_objects, notes)
+VALUES 
+('Galaxy', 'Milky Way', 0.99, 1000.50, 'None', 'Milky Way galaxy observed'),
+('Star', 'Andromeda', 0.96, 850.30, 'Planet A', 'Star with attached planet'),
+('Planet', 'Milky Way', 0.94, 300.75, 'None', 'Large planet observed'),
+('Nebula', 'Orion', 0.85, 500.60, 'Star B', 'Nebula with associated star'),
+('Black Hole', 'Sagittarius A*', 0.90, 1500.25, 'None', 'Black hole at center of galaxy');
+
+
+-- Заполнение таблицы Position
+INSERT INTO Position (earth_position, sun_position, moon_position)
+VALUES 
+('12.34, 56.78', '23.45, 67.89', '98.76, 54.32'),
+('22.11, 34.56', '12.34, 78.90', '67.89, 12.34'),
+('45.67, 89.01', '34.56, 23.45', '23.45, 67.89'),
+('56.78, 90.12', '45.67, 12.34', '12.34, 45.67'),
+('78.90, 23.45', '56.78, 34.56', '34.56, 78.90');
+
+
+-- Заполнение таблицы LinkTable
+INSERT INTO LinkTable (sector_id, object_id, natural_object_id, position_id)
+VALUES 
+(1, 1, 1, 1),
+(2, 2, 2, 2),
+(3, 3, 3, 3),
+(4, 4, 4, 4),
+(5, 5, 5, 5);

@@ -6,125 +6,155 @@
 	<title>Как можно работать с таблицами в MySQL на Node.js</title>
 </head>
 <style>
+	html,
 	body {
 		font-family: sans-serif;
 		text-align: center;
+		background-color: #f4f4f4;
+		margin: 0;
+		padding: 0;
+		width: 100vw;
+	}
+
+	.container {
+		max-width: 100%;
+		margin: auto;
+		/* padding: 20px; */
+	}
+
+	h1 {
+		color: #3f873f;
+		font-size: 30px;
 	}
 
 	form {
-		display: grid;
-		grid-template-columns: 100px 100px 100px 100px;
-		gap: 15px;
-		align-items: center;
-		justify-content: center;
+		margin-bottom: 20px;
+		background-color: #fff;
+		padding: 20px;
+		border-radius: 5px;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		width: 100%;
+	}
+
+	form label {
+		display: block;
+		font-size: 16px;
 
 	}
 
-	table {
-		width: 93%;
-		margin-left: auto;
-		margin-right: auto;
-		text-align: left;
-		border-collapse: collapse;
-		table-layout: fixed;
+	form input[type="text"],
+	form input[type="submit"] {
+		width: 100%;
+		padding: 10px;
+		font-size: 16px;
+		margin-bottom: 10px;
+		border: 1px solid #ccc;
+		border-radius: 5px;
 	}
 
-	tr:nth-child(odd) {
+	form input[type="submit"] {
+		cursor: pointer;
+		background-color: #5dae47;
+		color: #fff;
+		border: none;
+		transition: background-color 0.3s ease;
+	}
+
+	form input[type="submit"]:hover {
 		background-color: #489341;
 	}
 
-	tr:nth-child(even) {
-		background-color: #5dae47;
-	}
-
-	tr:first-child {
-		background-color: #37662a;
-		font-weight: bold;
-	}
-
-	tr {
-		opacity: 0.77;
-	}
-
-	tr:nth-child(n+2):hover {
-		color: #fff;
-		cursor: pointer;
-		font-weight: bold;
-		background-color: #24421b;
-	}
-
-	td {
-		padding: 5px;
-		position: relative;
-		border: 1px solid #333;
-		height: 20px;
-	}
-
-	td:first-child {
-		width: 35px;
-		text-align: center;
-	}
-
-	h1,
-	h1 a:visited {
-		color: #3f873f;
+	table {
+		width: 100%;
+		border-collapse: collapse;
+		margin-top: 20px;
 		background-color: #fff;
-		font-size: 30px;
-		font-family: Roboto, Geneva, Arial, Helvetica, sans-serif;
+		border-radius: 5px;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	}
 
-	h1 a:hover {
-		color: #57a645;
+	table th,
+	table td {
+		padding: 7px;
+		border: 1px solid #ccc;
+		text-align: left;
 	}
 
-	a {
-		text-decoration: none;
-	}
-
-	label {
-		font-size: 16px;
-		text-decoration: underline;
-		margin-left: 5px;
-	}
-
-	div {
-		display: contents;
-		font-size: 21px;
+	table th {
+		background-color: #37662a;
+		color: #fff;
 		font-weight: bold;
 	}
 
-	input[type="submit"] {
-		cursor: pointer;
+	table tr:nth-child(odd) {
+		background-color: #f9f9f9;
 	}
 
-	input[type="text"] {
-		font-style: italic;
+	table tr:hover {
+		background-color: #f1f1f1;
 	}
 </style>
 
 <body>
 	<h1><a href=".">Как можно работать с таблицами в MySQL на Node.js</a></h1>
-	<form action="." method="post">
-		<label>Инн</label>
-		<div></div><input type="text" name="inn" required />
-		<label>тип субъекта </label>
-		<div></div><input type="text" name="entity_type" required />
-		<label>адрес</label>
-		<div></div><input type="text" name="address" required />
-		<label>общая сумма</label>
-		<div></div><input type="text" name="total_amount" required />
-		<label>условия</label>
-		<div></div><input type="text" name="conditions" required />
-		<label>юр. примечания</label>
-		<div></div><input type="text" name="legal_notes" required />
-		<label>список договоров</label>
-		<div></div><input type="text" name="contract_list" required />
+	<div class="container"></div>
+	<h1>Таблица с положениями</h1>
 
+	<!-- Форма для добавления записи -->
+	<form action="/add" method="post">
+		<label>Положение Земли</label>
+		<input type="text" name="earth_position" required />
+		<label>Положение Солнца</label>
+		<input type="text" name="sun_position" required />
+		<label>Положение Луны</label>
+		<input type="text" name="moon_position" required />
 		<input type="submit" value="Добавить" />
 	</form>
+
+	<!-- Форма для обновления записи в таблице sector -->
+	<form action="/update" method="post">
+		<label>id</label>
+		<input type="text" name="id" required />
+		<label>light_intensity</label>
+		<input type="text" name="light_intensity" required />
+		<label>foreign_objects</label>
+		<input type="text" name="foreign_objects" required />
+		<input type="submit" value="Обновить" />
+	</form>
+
+	<!-- Форма для удаления записи -->
+	<form action="/delete" method="post">
+		<label>ID для удаления</label>
+		<input type="text" name="id" required />
+		<input type="submit" value="Удалить" />
+	</form>
+
+	<!-- Форма для объединения таблиц -->
+	<form action="/" method="GET">
+		<label for="table1">Таблица 1:</label>
+		<select id="table1" name="table1">
+			<option value="linktable">linktable</option>
+			<option value="position">position</option>
+
+		</select><br><br>
+		<label for="table2">Таблица 2:</label>
+		<select id="table2" name="table2">
+
+			<option value="position">position</option>
+			<option value="linktable">linktable</option>
+
+		</select><br><br>
+		<button type="submit">Объединить таблицы</button>
+	</form>
+
+
+	</div>
 	<br />
 	<table>
 		@tr
+	</table>
+	<table id="join-table">
+		@join
 	</table>
 	<p>Версия базы данных:
 		<b>
